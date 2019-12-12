@@ -6,4 +6,4 @@
 
 > FORM
 
-<p>A aplicação foi escrita em Python, utilizando o Flask Framework e o MongoDB como banco de dados.</p># cadastro
+<p>A aplicação foi escrita em Python, utilizando o Flask Framework e o MongoDB como banco de dados.</p>
