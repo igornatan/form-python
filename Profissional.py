@@ -1,7 +1,7 @@
 class Profissional:
-    def __init__(self, profissao, escolaridade, renda):
+    def __init__(self, profissao, formacao, renda):
         self.__profissao = profissao
-        self.__escolaridade = escolaridade
+        self.__formacao = formacao
         self.__renda = renda
 
     @property
@@ -10,7 +10,7 @@ class Profissional:
 
     @property
     def get_escolaridade(self):
-        return self.__escolaridade
+        return self.__formacao
 
     @property
     def get_rendas(self):

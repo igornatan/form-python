@@ -1,8 +1,7 @@
 class Pessoa:
-    def __init__(self, identificacao, profissional, relacionamento, residencia, contato):
+    def __init__(self, identificacao, profissional, residencia, contato):
         self.__identificacao = identificacao
         self.__profissional = profissional
-        self.__relacionamento = relacionamento
         self.__residencia = residencia
         self.__contato = contato
 
@@ -13,10 +12,6 @@ class Pessoa:
     @property
     def get_profissional(self):
         return self.__profissional
-
-    @property
-    def get_relacionamento(self):
-        return self.__relacionamento
 
     @property
     def get_residencia(self):
