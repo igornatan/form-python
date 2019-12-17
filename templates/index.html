@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 {% block conteudo %}
-    <img src="{{ url_for('imagem', nome_arquivo='bem-vindo.png') }}">
+    <hr>
     <a class="btn btn-primary" href="{{ url_for('listar_pessoas') }}">Ver cadastros</a>
     <a class="btn btn-primary" href="{{ url_for('novo') }}">Novo cadastro</a>
 {% endblock %}

@@ -9,9 +9,9 @@ class Profissional:
         return self.__profissao
 
     @property
-    def get_escolaridade(self):
+    def get_formacao(self):
         return self.__formacao
 
     @property
-    def get_rendas(self):
+    def get_renda(self):
         return self.__renda
