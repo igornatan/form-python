@@ -2,8 +2,18 @@
 
 ## Cadastro de Pessoas
 
-<p>A implementação escolhida foi realizar uma aplicação que faça cadastro de pessoas.</p>
+>FORM
+<p>Implementação de uma aplicação que faça cadastro de pessoas.</p>
+<p>A aplicação foi escrita em Python, utilizando o Flask Framework e o MongoDB.</p>
 
-> FORM
+### Linux Dependencies
 
-<p>A aplicação foi escrita em Python, utilizando o Flask Framework e o MongoDB como banco de dados.</p>
+> Python 3.6
+
+> Flask 1.1.1
+
+> MongoDB 3.6.8
+
+## Build
+
+```flask run```
