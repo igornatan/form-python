@@ -12,9 +12,10 @@
         <tbody>
         {% for i in output %}
             <tr>
-                <td>{{ i['name'] }}</td>
-                <td>{{ i['cpf'] }}</td>
-                <td>{{ i['data_nascimento'] }}</td>
+                <td>{{ i['identificacao'] }}</td>
+                <td>{{ i['residencia'] }}</td>
+                <td>{{ i['contato'] }}</td>
+                <td>{{ i['profissional'] }}</td>
                 <td>Editar ou Excluir</td>
             </tr>
         {% endfor %}
