@@ -95,21 +95,5 @@ def index():
     return render_template('index.html', titulo='Bem vindo ao Form')
 
 
-# @app.route('/table')
-# def table():
-#     form_db = mongo.db.form_rest
-#     output = []
-
-#     for q in form_db.find():
-#         output.append({'name': q['name'], 
-#                        'cpf': q['cpf'], 
-#                        'data_nascimento': q['data_nascimento']})
-#     return render_template('table.html', output=output)
-
-# @app.route('/uploads/<nome_arquivo>')
-# def imagem(nome_arquivo):
-#     return send_from_directory('uploads', nome_arquivo)
-
-
 if __name__ == '__main__':
     app.run(debug=True)
