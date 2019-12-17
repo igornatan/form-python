@@ -2,11 +2,11 @@ from flask import Flask, jsonify, request, render_template, url_for, redirect, s
 from flask_pymongo import PyMongo
 
 # Importando as classes
-from Pessoa import Pessoa
-from Identificacao import Identificacao
-from Residencia import Residencia
-from Contato import Contato
-from Profissional import Profissional
+from models.Pessoa import Pessoa
+from models.Identificacao import Identificacao
+from models.Residencia import Residencia
+from models.Contato import Contato
+from models.Profissional import Profissional
 
 app = Flask(__name__)
 
