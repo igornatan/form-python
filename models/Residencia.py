@@ -1,5 +1,5 @@
 class Residencia:
-    def __init__(self, cep, tipo_endereco, logradouro, numero, bairro, complemento, municipio):
+    def __init__(self, cep, tipo_endereco, logradouro, numero, bairro, complemento, municipio, estado):
         self.__cep = cep
         self.__tipo_endereco = tipo_endereco
         self.__logradouro = logradouro
@@ -7,6 +7,7 @@ class Residencia:
         self.__bairro = bairro
         self.__complemento = complemento
         self.__municipio = municipio
+        self.__estado = estado
 
     @property
     def get_cep(self):
@@ -35,3 +36,7 @@ class Residencia:
     @property
     def get_municipio(self):
         return self.__municipio
+
+    @property
+    def get_estado(self):
+        return self.__estado

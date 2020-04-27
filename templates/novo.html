@@ -58,6 +58,10 @@
             <label for="console">Municipio</label>
             <input type="text" id="municipio" name="municipio" class="form-control">
           </div>
+          <div class="form-group">
+            <label for="console">Estado</label>
+            <input type="text" id="estado" name="estado" class="form-control">
+          </div>
           <hr>
           <h2>Contato</h2>
           <div class="form-group">
@@ -91,7 +95,7 @@
             <input type="text" id="logradouro" name="renda" class="form-control">
           </div>
           <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
-          <a class="btn btn-danger" href="{{ url_for('index') }}">Voltar</a>
+          <a class="btn btn-danger" href="{{ url_for('listar_pessoas') }}">Voltar</a>
         </fieldset>
     </form>
 {% endblock %}
