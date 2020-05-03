@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request, render_template, url_for, redirect, s
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from loguru import logger
+from bson import ObjectId
+from bson.json_util import dumps
 
 # Importando as classes
 from models.Pessoa import Pessoa
@@ -14,10 +16,43 @@ app = Flask(__name__)
 CORS(app)
 
 app.config['MONGO_DBNAME'] = 'register'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/register'
+app.config['MONGO_URI'] = 'mongodb://192.168.10.132:27017/register'
 
 mongo = PyMongo(app)
 
+# register = mongo.db.register
+
+# register.insert({
+#         'identificacao': {
+#             'nome_completo': 'Igor Natan Melegari Bagio',
+#             'cpf': '113.624.299.61',
+#             'sexo': 'Masculino',
+#             'estado_civil': 'Solteiro',
+#             'data_nascimento': '19/08/1999',
+#             'naturalidade': 'Brasileiro'
+#         },
+#         'residencia': {
+#             'cep': '89825-000',
+#             'tipo_endereco': 'Residencial',
+#             'logradouro': 'Rua Gilberto Vicenzi',
+#             'numero': '226',
+#             'bairro': 'Loteamento Ferrazzo',
+#             'complemento': 'ND',
+#             'municipio': 'Xaxim',
+#             'estado': 'SC'
+#         },
+#         'contato': {
+#             'telefone': '49999168411',
+#             'tipo_telefone': 'Celular',
+#             'email': 'igor.natanbagio@gmail.com',
+#             'tipo_email': 'Particular'
+#         },
+#         'profissional': {
+#             'profissao': 'Desenvolvedor',
+#             'formacao': 'Graduando',
+#             'renda': '1000,00'
+#         }
+#     })
 
 @app.route('/pessoas', methods=['GET'])
 def listar_pessoas():
@@ -26,13 +61,28 @@ def listar_pessoas():
 
     for q in register.find():
         output.append({
+            '_id': q['_id'],
             'identificacao': q['identificacao'],
             'residencia': q['residencia'],
             'contato': q['contato'],
             'profissional': q['profissional']
         })
-    # return render_template('listar.html', output=output, titulo='Cadastros')
-    return jsonify(output)
+    return dumps(output)
+
+
+@app.route('/pessoas/<id_pessoa>', methods=['GET'])
+def get_pessoa(id_pessoa):
+    register = mongo.db.register
+    pessoa = register.find_one({'_id': ObjectId(id_pessoa)})
+    return dumps(pessoa)
+
+
+@app.route('/pessoas/<id_pessoa>', methods=['PUT'])
+def edit_pessoa(id_pessoa):
+    register = mongo.db.register
+    # pessoa = register.update({'_id': ObjectId(id_pessoa)}, {'$set': request.data})
+    # logger.debug(pessoa)
+    logger.debug(request.data.decode('utf-8'))
 
 
 @app.route('/cadastrar', methods=['POST'])
@@ -109,11 +159,6 @@ def cadastrar_pessoa():
     register = mongo.db.register
     register.insert(cadastro)
     return jsonify(cadastro)
-
-
-@app.route('/vue')
-def test_vue():
-    return render_template('novo.vue')
 
 
 if __name__ == '__main__':
