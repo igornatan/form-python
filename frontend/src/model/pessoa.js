@@ -9,10 +9,35 @@ class Pessoa extends Base {
 export default Pessoa
 
 const blank = {
-  identificacao: null,
-  profissional: null,
-  residencia: null,
-  contato: null
+  identificacao: {
+	nome_completo: null,
+	cpf: null,
+	sexo: null,
+	estado_civil: null,
+	data_nascimento: null,
+	naturalidade: null
+  },
+  profissional: {
+	profissao: null,
+	formacao: null,
+	renda: null
+  },
+  residencia: {
+	cep: null,
+	tipo_endereco: null,
+	logradouro: null,
+	numero: null,
+	bairro: null,
+	complemento: null,
+	municipio: null,
+	estado: null
+  },
+  contato: {
+	telefone: null,
+	tipo_telefone: null,
+	email: null,
+	tipo_email: null
+  }
 }
 
 export {}

@@ -4,6 +4,7 @@ from flask_cors import CORS
 from loguru import logger
 from bson import ObjectId
 from bson.json_util import dumps
+import json
 
 # Importando as classes
 from models.Pessoa import Pessoa
@@ -20,39 +21,6 @@ app.config['MONGO_URI'] = 'mongodb://192.168.10.132:27017/register'
 
 mongo = PyMongo(app)
 
-# register = mongo.db.register
-
-# register.insert({
-#         'identificacao': {
-#             'nome_completo': 'Igor Natan Melegari Bagio',
-#             'cpf': '113.624.299.61',
-#             'sexo': 'Masculino',
-#             'estado_civil': 'Solteiro',
-#             'data_nascimento': '19/08/1999',
-#             'naturalidade': 'Brasileiro'
-#         },
-#         'residencia': {
-#             'cep': '89825-000',
-#             'tipo_endereco': 'Residencial',
-#             'logradouro': 'Rua Gilberto Vicenzi',
-#             'numero': '226',
-#             'bairro': 'Loteamento Ferrazzo',
-#             'complemento': 'ND',
-#             'municipio': 'Xaxim',
-#             'estado': 'SC'
-#         },
-#         'contato': {
-#             'telefone': '49999168411',
-#             'tipo_telefone': 'Celular',
-#             'email': 'igor.natanbagio@gmail.com',
-#             'tipo_email': 'Particular'
-#         },
-#         'profissional': {
-#             'profissao': 'Desenvolvedor',
-#             'formacao': 'Graduando',
-#             'renda': '1000,00'
-#         }
-#     })
 
 @app.route('/pessoas', methods=['GET'])
 def listar_pessoas():
@@ -79,10 +47,12 @@ def get_pessoa(id_pessoa):
 
 @app.route('/pessoas/<id_pessoa>', methods=['PUT'])
 def edit_pessoa(id_pessoa):
+    data = json.loads(request.data.decode('utf-8'))
+    logger.debug(json.dumps(data, indent=4))
     register = mongo.db.register
-    # pessoa = register.update({'_id': ObjectId(id_pessoa)}, {'$set': request.data})
-    # logger.debug(pessoa)
-    logger.debug(request.data.decode('utf-8'))
+    register.update({'_id': ObjectId(id_pessoa)}, {'$set': json.loads(request.data)})
+    # logger.debug("Pessoa", pessoa)
+    return request.data.decode('utf-8')
 
 
 @app.route('/cadastrar', methods=['POST'])
@@ -91,37 +61,42 @@ def cadastrar_pessoa():
     informações vindas do formulário.
     :return:
     """
+
+    logger.debug(request.data.decode('utf-8'))
+
+    pessoa = json.loads(request.data.decode('utf-8'))
+
     identificacao = Identificacao(
-        nome_completo=request.form['nome_completo'],
-        cpf=request.form['cpf'],
-        sexo=request.form['sexo'],
-        estado_civil=request.form['estado_civil'],
-        data_nascimento=request.form['data_nascimento'],
-        naturalidade=request.form['naturalidade']
+        nome_completo=pessoa['identificacao']['nome_completo'],
+        cpf=pessoa['identificacao']['cpf'],
+        sexo=pessoa['identificacao']['sexo'],
+        estado_civil=pessoa['identificacao']['estado_civil'],
+        data_nascimento=pessoa['identificacao']['data_nascimento'],
+        naturalidade=pessoa['identificacao']['naturalidade']
     )
 
     residencia = Residencia(
-        cep=request.form['cep'],
-        tipo_endereco=request.form['tipo_endereco'],
-        logradouro=request.form['logradouro'],
-        numero=request.form['numero'],
-        bairro=request.form['bairro'],
-        complemento=request.form['complemento'],
-        municipio=request.form['municipio'],
-        estado=request.form['estado']
+        cep=pessoa['residencia']['cep'],
+        tipo_endereco=pessoa['residencia']['tipo_endereco'],
+        logradouro=pessoa['residencia']['logradouro'],
+        numero=pessoa['residencia']['numero'],
+        bairro=pessoa['residencia']['bairro'],
+        complemento=pessoa['residencia']['complemento'],
+        municipio=pessoa['residencia']['municipio'],
+        estado=pessoa['residencia']['estado']
     )
 
     contato = Contato(
-        telefone=request.form['telefone'],
-        tipo_telefone=request.form['tipo_telefone'],
-        email=request.form['email'],
-        tipo_email=request.form['tipo_email']
+        telefone=pessoa['contato']['telefone'],
+        tipo_telefone=pessoa['contato']['tipo_telefone'],
+        email=pessoa['contato']['email'],
+        tipo_email=pessoa['contato']['tipo_email']
     )
 
     profissional = Profissional(
-        profissao=request.form['profissao'],
-        formacao=request.form['formacao'],
-        renda=request.form['renda']
+        profissao=pessoa['profissional']['profissao'],
+        formacao=pessoa['profissional']['formacao'],
+        renda=pessoa['profissional']['renda']
     )
 
     cadastro = {
@@ -158,7 +133,7 @@ def cadastrar_pessoa():
 
     register = mongo.db.register
     register.insert(cadastro)
-    return jsonify(cadastro)
+    return dumps(cadastro)
 
 
 if __name__ == '__main__':
