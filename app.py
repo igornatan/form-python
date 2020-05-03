@@ -59,6 +59,9 @@ def edit_pessoa(id_pessoa):
 def cadastrar_pessoa():
     """ Realiza o cadastro de uma pessoa com as
     informações vindas do formulário.
+
+    Monta um objeto com as informações definidas no model
+    
     :return:
     """
 
