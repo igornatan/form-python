@@ -4,20 +4,20 @@ from flask_cors import CORS
 from loguru import logger
 from bson import ObjectId
 from bson.json_util import dumps
+from config import determine_env
 import json
 
 # Importando as classes
-from models.Pessoa import Pessoa
-from models.Identificacao import Identificacao
-from models.Residencia import Residencia
-from models.Contato import Contato
-from models.Profissional import Profissional
+from models import Pessoa
+from models import Identificacao
+from models import Residencia
+from models import Contato
+from models import Profissional
 
 app = Flask(__name__)
-CORS(app)
+app.config.from_object(determine_env(app))
 
-app.config['MONGO_DBNAME'] = 'register'
-app.config['MONGO_URI'] = 'mongodb://192.168.10.132:27017/register'
+CORS(app)
 
 mongo = PyMongo(app)
 
@@ -51,7 +51,6 @@ def edit_pessoa(id_pessoa):
     logger.debug(json.dumps(data, indent=4))
     register = mongo.db.register
     register.update({'_id': ObjectId(id_pessoa)}, {'$set': json.loads(request.data)})
-    # logger.debug("Pessoa", pessoa)
     return request.data.decode('utf-8')
 
 

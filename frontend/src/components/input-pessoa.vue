@@ -3,8 +3,8 @@
     <b-tabs content-class="mt-3" fill>
       <b-tab title="Identificação" id="nav-identificacao">
         <b-col cols="12" sm="12" md="6" lg="6">
-          <label>CPF</label>
-          <b-form-input :mask="'###.###.###-##'" placeholder="000.000.000-00" class="form-control" :disabled="disabled" v-model="model.identificacao.cpf"/>
+          <label for="identificacao-cpf">CPF</label>
+          <b-form-input id="identificacao-cpf" :mask="'###.###.###-##'" placeholder="000.000.000-00" class="form-control" :disabled="disabled" v-model="model.identificacao.cpf"/>
         </b-col>
 
         <b-col cols="12" sm="12" md="6" lg="6">
@@ -177,7 +177,7 @@ export default {
           }
         }).then(response => {
           this.wait(2000)
-          this.back() 
+          this.back()
         }).catch(e => e)
       } else {
         axios({
@@ -192,19 +192,19 @@ export default {
           }
         }).then(response => {
           this.wait(2000)
-          this.back() 
+          this.back()
         }).catch(e => e)
       }
     },
 
-    wait(ms){
-      var start = new Date().getTime();
-      var end = start;
-      while(end < start + ms) {
-        end = new Date().getTime();
+    wait (ms) {
+      var start = new Date().getTime()
+      var end = start
+      while (end < start + ms) {
+        end = new Date().getTime()
       }
     }
-  },  
+  },
 
   mounted () {
     let _id = this.$route.params._id
@@ -227,16 +227,18 @@ export default {
   }*/
 
   label {
-    /*margin: 10px 700px;*/
+    display: inline-block;
     text-align: center;
     width: 200%;
   }
 
   input, select {
-    width: 80%;
+    /* width: 80%; */
     padding: 15px 22px;
     margin: 10px 450px;
     box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 1em;
   }
 
   div.block_content {

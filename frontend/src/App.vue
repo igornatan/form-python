@@ -26,8 +26,7 @@ body {
   font-weight: 400 !important;
   line-height: 1.5 !important;
   color: #2e2e2e !important;
-  text-align: left !important;
-
+  text-align: center !important;
 }
 
 body {
